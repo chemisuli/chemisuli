@@ -1,87 +1,250 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Платежная страница</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f6f6f6;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 20px 30px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 100%;
-        }
-        h1 {
-            text-align: center;
-            color: #333333;
-            margin-bottom: 20px;
-        }
-        h2 {
-            color: #555555;
-            margin-top: 20px;
-            font-size: 20px;
-            border-bottom: 1px solid #eaeaea;
-            padding-bottom: 5px;
-        }
-        .account {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
-        .account span {
-            font-weight: bold;
-            color: #4a90e2;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin: 10px 0;
-        }
-        a {
-            color: #4a90e2;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Details</title>
+  <style>
+    :root {
+      --brown: #360100;
+      --cream: #FFF4E5;
+      --lavender: #CCB8EF;
+      --white: #FFFFFF;
+      --shadow: rgba(30, 8, 8, 0.24);
+      --overlay: rgba(54, 1, 0, 0.20);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: var(--brown);
+      background:
+        linear-gradient(var(--overlay), var(--overlay)),
+        url("background.jpg") center center / cover no-repeat fixed;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 18px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 580px;
+    }
+
+    .card {
+      background: rgba(255, 244, 229, 0.93);
+      border: 1px solid rgba(54, 1, 0, 0.10);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 28px var(--shadow);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .bank-name {
+      margin: 0 0 18px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--brown);
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: rgba(54, 1, 0, 0.72);
+    }
+
+    .copy-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .value {
+      flex: 1;
+      min-width: 0;
+      padding: 14px 14px;
+      background: rgba(255, 255, 255, 0.70);
+      border: 1px solid rgba(54, 1, 0, 0.08);
+      border-radius: 12px;
+      font-size: 16px;
+      line-height: 1.35;
+      color: var(--brown);
+      overflow-wrap: anywhere;
+    }
+
+    button,
+    .paypal-button {
+      flex-shrink: 0;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: var(--brown);
+      color: var(--cream);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+    }
+
+    button:hover,
+    .paypal-button:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .paypal-button.disabled {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: rgba(54, 1, 0, 0.88);
+      color: var(--cream);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .thank-you {
+      margin: 8px 0 0;
+      text-align: center;
+      color: var(--lavender);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        padding: 18px 14px;
+      }
+
+      .card {
+        padding: 18px;
+        border-radius: 18px;
+      }
+
+      .bank-name {
+        font-size: 22px;
+      }
+
+      .copy-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      button,
+      .paypal-button {
+        width: 100%;
+      }
+
+      .thank-you {
+        font-size: 22px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>Платежная страница</h1>
+  <div class="page">
+    <main class="container">
 
-    <h2>Счета для оплаты</h2>
-    <!-- Замените приведенные ниже примеры на свои реальные данные. -->
-    <div class="account">
-        <span>Счет №1:</span> 1234 5678 9012 3456
-    </div>
-    <div class="account">
-        <span>Счет №2:</span> 9876 5432 1098 7654
-    </div>
+      <section class="card">
+        <h2 class="bank-name">TBC Bank</h2>
 
-    <h2>Полезные ссылки</h2>
-    <ul>
-        <!-- Измените текст и адрес ссылки на нужные вам. -->
-        <li><a href="https://example.com/first-link" target="_blank">Первый сайт</a></li>
-        <li><a href="https://example.com/second-link" target="_blank">Второй сайт</a></li>
-    </ul>
+        <div class="field">
+          <span class="label">Account number</span>
+          <div class="copy-row">
+            <div class="value" id="tbc-account">GE39TB7905045063400003</div>
+            <button type="button" onclick="copyValue('tbc-account', this)">Copy</button>
+          </div>
+        </div>
 
-    <p>Для изменения информации на этой странице, отредактируйте файл <code>index.html</code>.</p>
-</div>
+        <div class="field">
+          <span class="label">Account holder</span>
+          <div class="copy-row">
+            <div class="value" id="tbc-name">Angelina Popova</div>
+            <button type="button" onclick="copyValue('tbc-name', this)">Copy</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="bank-name">Credo Bank</h2>
+
+        <div class="field">
+          <span class="label">Account number</span>
+          <div class="copy-row">
+            <div class="value" id="credo-account">GE93CD0360000045174115</div>
+            <button type="button" onclick="copyValue('credo-account', this)">Copy</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="label">Account holder</span>
+          <div class="copy-row">
+            <div class="value" id="credo-name">Angelina Popova</div>
+            <button type="button" onclick="copyValue('credo-name', this)">Copy</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="bank-name">PayPal</h2>
+        <!-- Later replace # with your PayPal link and remove "disabled".
+             Example:
+             <a class="paypal-button" href="https://paypal.me/yourname" target="_blank">Open PayPal</a>
+        -->
+        <a class="paypal-button disabled" href="#" aria-disabled="true">PayPal link coming soon</a>
+      </section>
+
+      <p class="thank-you">Thank you!</p>
+    </main>
+  </div>
+
+  <script>
+    async function copyValue(elementId, button) {
+      const value = document.getElementById(elementId).textContent.trim();
+      const originalText = button.textContent;
+
+      try {
+        await navigator.clipboard.writeText(value);
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+        textarea.value = value;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      button.textContent = "Copied";
+      setTimeout(() => {
+        button.textContent = originalText;
+      }, 1400);
+    }
+  </script>
 </body>
 </html>
